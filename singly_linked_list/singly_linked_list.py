@@ -9,8 +9,8 @@ class Node:
     def get_next(self):
         return self.next
 
-    def set_next(self, value):
-        self.next = value
+    def set_next(self, new_next):
+        self.next = new_next
 
 class LinkedList:
     def __init__(self):
@@ -37,13 +37,14 @@ class LinkedList:
 
         current = self.head
 
-        while current.get_next() is not self.tail:
+        while current.get_next() and current.get_next() is not self.tail:
             current = current.get_next()
         # if non empty
         # set tail to none
         val = self.tail.get_value()
-        self.tail = None
         self.tail = current
+        self.tail.set_next(None)
+
 
         return val
 
@@ -66,12 +67,10 @@ class LinkedList:
     def contains(self, value):
         if not self.head:
             return False
-
         current = self.head
 
         while current:
-
-            if current.get_value == value:
+            if current.get_value() == value:
                 return True
             
             current = current.get_next()
@@ -94,4 +93,7 @@ class LinkedList:
             current = current.get_next()
         
         return max_value
+
+    def is_empty(self):
+        return self.head == None and self.tail == None
         
