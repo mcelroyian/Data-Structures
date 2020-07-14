@@ -27,7 +27,31 @@ class DoublyLinkedList:
     the old head node's previous pointer accordingly.
     """
     def add_to_head(self, value):
-        pass
+        #create a ListNode with the passed in value
+        new_node = ListNode(value)
+        #If there is NOT a head
+        if self.head is None and self.tail is None:
+            #set the head and tail to new_node
+            self.head = new_node
+            self.tail = new_node 
+            #update length +1
+            self.length += 1
+
+        #if there is a head
+        else:
+            old_head = self.head
+            #1. reassign head field of the DoublyLinkedList Class
+            self.head = new_node
+            #2. new_node or current head's next value needs to
+            #old head
+            self.head.next = old_head
+            old_head.prev = self.head
+            #3. old head prev need to point to new head or new_node
+  
+            #4 update length +1
+            self.length += 1
+
+
         
     """
     Removes the List's current head node, making the
@@ -35,7 +59,27 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_head(self):
-        pass
+        #No existing head
+        if not self.head:
+            return
+        #Existing head one value
+        if self.head is self.tail:
+            val = self.head.value
+            self.head = None
+            self.tail = None
+            self.length = 0
+            return val
+        #Existing head more than one
+        #save old head value to return
+        old_head = self.head
+        #update head field to next node
+        self.head = self.head.next
+        #update new head's prev to none
+        self.head.prev = None
+        self.length -= 1
+        return old_head
+
+
             
     """
     Wraps the given value in a ListNode and inserts it 
@@ -43,7 +87,16 @@ class DoublyLinkedList:
     the old tail node's next pointer accordingly.
     """
     def add_to_tail(self, value):
-        pass
+        new_node = ListNode(value)
+        self.length += 1
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
+
             
     """
     Removes the List's current tail node, making the 
