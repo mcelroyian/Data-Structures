@@ -31,10 +31,12 @@ class Queue:
         return count
 
     def enqueue(self, value):
+        self.size +=1
         self.storage.add_to_tail(value)
 
     def dequeue(self):
         if not self.storage.is_empty():
+            self.size -=1
             return self.storage.remove_head()
         else:
             return None
